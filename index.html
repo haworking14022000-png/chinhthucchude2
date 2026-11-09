@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chủ đề 2: Áp dụng Văn bản Quy phạm Pháp luật</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0f172a',
+                            900: '#0b1120',
+                            950: '#050914',
+                        },
+                        gold: {
+                            300: '#fde047',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: #050914;
+            color: #f8fafc;
+            user-select: none;
+        }
+
+        /* Prezi Infinite Canvas Viewport */
+        #prezi-viewport {
+            position: relative;
+            width: 100vw;
+            height: calc(100vh - 120px);
+            overflow: hidden;
+            perspective: 1200px;
+        }
+
+        #prezi-world {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Each Slide Frame Positioned in 3D Canvas Space - Standardized bounds to strictly fit viewport */
+        .prezi-slide {
+            position: absolute;
+            width: 100vw;
+            height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            opacity: 0.1;
+            filter: blur(6px) grayscale(0.8);
+            transition: opacity 0.8s ease, filter 0.8s ease;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .prezi-slide.active-slide {
+            opacity: 1;
+            filter: blur(0px) grayscale(0);
+            pointer-events: auto;
+        }
+
+        /* Continuous Color Shifting / Rainbow Text Effects */
+        .color-shift-text {
+            background: linear-gradient(90deg, #f59e0b, #fde047, #38bdf8, #a855f7, #f59e0b);
+            background-size: 400% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShift 6s ease-in-out infinite;
+        }
+        @keyframes textShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Subtle Floating animation for elements */
+        .float-anim {
+            animation: floatMove 4s ease-in-out infinite;
+        }
+        .float-anim-delayed {
+            animation: floatMove 4s ease-in-out infinite 2s;
+        }
+        @keyframes floatMove {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .hover-color-glow {
+            transition: all 0.3s ease;
+        }
+        .hover-color-glow:hover {
+            color: #fbbf24 !important;
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+        }
+
+        /* Hover & Dim interactive elements */
+        .interactive-container:hover .interactive-item {
+            opacity: 0.35;
+            filter: blur(1px);
+            transform: scale(0.97);
+            transition: all 0.3s ease;
+        }
+        .interactive-container .interactive-item:hover {
+            opacity: 1 !important;
+            filter: blur(0px) !important;
+            transform: scale(1.02) !important;
+            z-index: 30;
+            box-shadow: 0 15px 25px -5px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Glassmorphism Styling */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .glass-card-gold {
+            background: rgba(245, 158, 11, 0.08);
+            backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(245, 158, 11, 0.4);
+        }
+
+        /* Animated Text Gradient */
+        .gradient-text-animated {
+            background: linear-gradient(90deg, #f59e0b, #fde047, #ffffff, #f59e0b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 6s infinite linear;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Gavel Strike Visual Effect */
+        #gavel-overlay {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            width: 120px;
+            height: 120px;
+            display: none;
+            transform-origin: bottom right;
+        }
+        .gavel-strike {
+            animation: gavelStrikeAnim 0.4s ease-in-out;
+        }
+        @keyframes gavelStrikeAnim {
+            0% { transform: rotate(-45deg) scale(1.3); opacity: 1; }
+            50% { transform: rotate(15deg) scale(1); opacity: 1; }
+            70% { transform: rotate(0deg) scale(0.95); opacity: 1; }
+            100% { transform: rotate(0deg) scale(1); opacity: 0; }
+        }
+
+        .shockwave {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            border: 3px solid #f59e0b;
+            border-radius: 50%;
+            animation: shockwaveAnim 0.5s ease-out forwards;
+        }
+        @keyframes shockwaveAnim {
+            0% { width: 0px; height: 0px; opacity: 1; }
+            100% { width: 200px; height: 200px; opacity: 0; transform: translate(-50%, -50%); }
+        }
+
+        /* Little Cute Turtle Walking Animation */
+        #cute-turtle {
+            position: fixed;
+            z-index: 9990;
+            width: 48px;
+            height: 48px;
+            pointer-events: none;
+            transition: left 2.5s ease-out, top 2.5s ease-out, opacity 1s ease, transform 0.4s ease;
+            opacity: 0;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+        }
+        .turtle-wobble {
+            animation: turtleWalk 0.6s infinite alternate ease-in-out;
+        }
+        @keyframes turtleWalk {
+            0% { transform: rotate(-5deg) translateY(0px); }
+            100% { transform: rotate(5deg) translateY(-2px); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 4px;
+        }
+
+        /* Interactive Laser Pointer Styling */
+        #laser-pointer {
+            position: fixed;
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle, #ff0055 0%, #ff0000 70%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 15px #ff0055, 0 0 30px #ff0000;
+            display: none;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body class="flex flex-col justify-between relative overflow-hidden bg-navy-950">
+
+    <!-- PARTICLES BACKGROUND CANVAS -->
+    <canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+    
+    <!-- GAVEL OVERLAY -->
+    <div id="gavel-overlay">
+        <i class="fa-solid fa-gavel text-6xl text-gold-400 drop-shadow-[0_0_20px_rgba(245,158,11,0.9)]"></i>
+    </div>
+
+    <!-- LASER POINTER -->
+    <div id="laser-pointer"></div>
+
+    <!-- CUTE TURTLE EASTER EGG -->
+    <div id="cute-turtle" onclick="interactTurtle(event)" class="cursor-pointer pointer-events-auto" title="Click để giải mật mã từ Rùa!">
+        <div class="turtle-wobble flex flex-col items-center justify-center text-emerald-400 relative">
+            <!-- Speech / Code Puzzle Box -->
+            <div id="turtle-speech" class="hidden absolute -top-28 left-1/2 -translate-x-1/2 bg-navy-950 text-white border-2 border-gold-400 p-2.5 rounded-2xl shadow-2xl z-50 w-64 text-left pointer-events-none">
+                <div id="turtle-fact-title" class="font-black text-xs text-gold-300 border-b border-gold-500/30 pb-0.5 mb-1 flex items-center justify-between">
+                    <span>🗝️ Mật Mã Bí Mật #1</span>
+                    <i class="fa-solid fa-key text-gold-400 animate-pulse"></i>
+                </div>
+                <div id="turtle-fact-body" class="text-[11px] text-slate-100 font-medium leading-snug">
+                    Hãy ghi nhớ từ khóa bí mật này nhé!
+                </div>
+                <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-gold-400"></div>
+            </div>
+            
+            <i class="fa-solid fa-otter text-4xl transform -rotate-45 text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.9)] hover:scale-110 transition-transform"></i>
+            <span class="text-[9px] bg-slate-900/90 text-gold-300 font-bold px-2 py-0.5 rounded-full border border-gold-500/40 -mt-1 shadow-md">🔑 Rùa Mật Mã</span>
+        </div>
+    </div>
+
+    <!-- TOP BAR / HEADER -->
+    <header class="w-full bg-navy-950/90 border-b border-slate-800 px-4 md:px-6 py-2 flex justify-between items-center z-50 backdrop-blur-md h-[60px] shrink-0">
+        <div class="flex items-center space-x-3 overflow-hidden">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 font-black text-lg shrink-0 shadow-lg shadow-gold-500/20">
+                <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+            <div class="truncate">
+                <h1 class="text-sm md:text-base font-black tracking-wide text-white truncate hover-color-glow cursor-default">
+                    CHỦ ĐỀ 2: ÁP DỤNG VĂN BẢN QUY PHẠM PHÁP LUẬT
+                </h1>
+                <p class="text-xs text-gold-400 font-semibold truncate">Nội dung đào sâu: Văn bản cũ hay văn bản mới khi pháp luật thay đổi?</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3 shrink-0">
+            <!-- Slide Counter -->
+            <div class="bg-navy-900 border border-gold-500/30 px-3 py-1 rounded-full text-xs md:text-sm font-semibold text-slate-300 shadow-inner">
+                Slide <span id="current-slide-num" class="text-gold-300 text-base font-black">1</span> / <span id="total-slides-num">10</span>
+            </div>
+
+            <!-- Fullscreen Button -->
+            <button onclick="toggleFullscreen()" class="p-2 text-slate-300 hover:text-gold-400 transition-colors rounded-xl hover:bg-slate-800" title="Toàn màn hình">
+                <i class="fa-solid fa-expand text-lg"></i>
+            </button>
+            
+            <!-- Index Menu Toggle -->
+            <button onclick="toggleDrawer()" class="p-2 text-slate-300 hover:text-gold-400 transition-colors rounded-xl hover:bg-slate-800" title="Danh sách Slide">
+                <i class="fa-solid fa-list-ul text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN PREZI VIEWPORT (3D CAMERA SYSTEM) -->
+    <main id="prezi-viewport">
+        <div id="prezi-world">
+
+            <!-- ================= SLIDE 1 ================= -->
+            <section class="prezi-slide active-slide" id="slide-1">
+                <div class="w-full max-w-4xl my-auto flex flex-col justify-center items-center text-center space-y-4 py-2">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-300 text-xs font-bold shadow-lg">
+                        <i class="fa-solid fa-gavel"></i> BÁO CÁO CHUYÊN ĐỀ PHÁP LUẬT
+                    </div>
+                    
+                    <h1 class="text-2xl md:text-4xl font-black tracking-tight text-white leading-tight color-shift-text">
+                        CHỦ ĐỀ 2: ÁP DỤNG VĂN BẢN QUY PHẠM PHÁP LUẬT
+                    </h1>
+                    
+                    <div class="w-28 h-1 bg-gradient-to-r from-gold-600 via-gold-300 to-gold-600 rounded-full shadow-lg shadow-gold-500/50"></div>
+
+                    <div class="bg-navy-900/90 border-2 border-gold-500/40 p-4 rounded-2xl max-w-2xl glass-card">
+                        <p class="text-base md:text-xl text-gold-300 font-bold italic leading-relaxed hover-color-glow">
+                            "Nội dung đào sâu: Văn bản cũ hay văn bản mới khi pháp luật thay đổi?"
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full max-w-3xl pt-1 interactive-container">
+                        <div onclick="triggerGavelEffect(event); goToSlide(2)" class="interactive-item float-anim p-4 glass-card rounded-2xl border-l-6 border-l-gold-500 text-left transition-all cursor-pointer">
+                            <div class="text-gold-300 font-extrabold text-base mb-1 flex items-center justify-between">
+                                <span>I. Cơ sở lý luận</span>
+                                <i class="fa-solid fa-book-bookmark text-sm"></i>
+                            </div>
+                            <p class="text-xs text-slate-200 font-medium">Khái niệm, 4 dấu hiệu pháp lý & các nguyên tắc áp dụng VBQPPL.</p>
+                        </div>
+                        <div onclick="triggerGavelEffect(event); goToSlide(5)" class="interactive-item float-anim-delayed p-4 glass-card rounded-2xl border-l-6 border-l-gold-500 text-left transition-all cursor-pointer">
+                            <div class="text-gold-300 font-extrabold text-base mb-1 flex items-center justify-between">
+                                <span>II. Vận dụng thực tiễn</span>
+                                <i class="fa-solid fa-scale-unbalanced text-sm"></i>
+                            </div>
+                            <p class="text-xs text-slate-200 font-medium">Tình huống "Một tình huống - hai mức phạt" & bảng so sánh mở rộng.</p>
+                        </div>
+                        <div onclick="triggerGavelEffect(event); goToSlide(8)" class="interactive-item float-anim p-4 glass-card rounded-2xl border-l-6 border-l-gold-500 text-left transition-all cursor-pointer">
+                            <div class="text-gold-300 font-extrabold text-base mb-1 flex items-center justify-between">
+                                <span>III. Bình luận & Bài học</span>
+                                <i class="fa-solid fa-comments text-sm"></i>
+                            </div>
+                            <p class="text-xs text-slate-200 font-medium">Ý nghĩa bảo vệ quyền lợi, 4 nhầm lẫn & quy trình 3 bước tra cứu.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 2 ================= -->
+            <section class="prezi-slide" id="slide-2">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-4 py-4">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-3 py-1 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">I. Cơ sở lý luận</span>
+                        <h2 class="text-xl md:text-3xl font-black text-white hover-color-glow">1. Khái niệm và dấu hiệu pháp lý của áp dụng VBQPPL</h2>
+                    </div>
+                    
+                    <div class="bg-navy-900/90 border-2 border-gold-500/40 rounded-3xl p-6 shadow-2xl relative overflow-hidden glass-card">
+                        <div class="absolute -right-8 -bottom-8 text-slate-800/20 text-[140px] pointer-events-none">
+                            <i class="fa-solid fa-file-contract"></i>
+                        </div>
+                        <h3 class="text-gold-300 font-black text-xl mb-3 flex items-center">
+                            <i class="fa-solid fa-file-signature mr-2 text-2xl"></i>a) Khái niệm
+                        </h3>
+                        <p class="text-lg md:text-2xl text-slate-100 leading-relaxed font-semibold pl-4 border-l-6 border-gold-500">
+                            Là việc <strong class="text-gold-300 font-black underline decoration-gold-500 hover-color-glow">Cơ quan Nhà nước (hoặc người có thẩm quyền)</strong> dùng pháp luật để giải quyết một vụ việc cụ thể trong thực tế, từ đó <strong class="text-white font-extrabold hover-color-glow">xác định quyền và nghĩa vụ của các bên liên quan</strong>.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                        <div class="glass-card p-5 rounded-2xl border border-slate-700 hover:border-gold-500/50 transition-all">
+                            <div class="text-gold-300 font-bold text-base mb-1 flex items-center">
+                                <i class="fa-solid fa-user-shield mr-2 text-lg"></i>Bản chất hoạt động
+                            </div>
+                            <p class="text-sm md:text-base text-slate-200 font-medium">Hoạt động mang tính quyền lực chuyên biệt của nhà nước nhằm đưa quy phạm pháp luật chung vào đời sống thực tế cá biệt.</p>
+                        </div>
+                        <div class="glass-card p-5 rounded-2xl border border-slate-700 hover:border-gold-500/50 transition-all">
+                            <div class="text-gold-300 font-bold text-base mb-1 flex items-center">
+                                <i class="fa-solid fa-bullseye mr-2 text-lg"></i>Mục đích trực tiếp
+                            </div>
+                            <p class="text-sm md:text-base text-slate-200 font-medium">Giải quyết triệt để sự việc cụ thể, bảo vệ trật tự pháp luật và giải quyết các mối quan hệ quyền - nghĩa vụ phát sinh.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 3 ================= -->
+            <section class="prezi-slide" id="slide-3">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-4 py-4">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-3 py-1 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">I. Cơ sở lý luận</span>
+                        <h2 class="text-xl md:text-3xl font-black text-white hover-color-glow">b) Dấu hiệu pháp lý của áp dụng pháp luật</h2>
+                    </div>
+
+                    <!-- Mindmap 4 Dấu Hiệu Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 interactive-container">
+                        
+                        <!-- Dấu hiệu 1 -->
+                        <div onclick="triggerGavelEffect(event)" class="interactive-item glass-card p-5 rounded-2xl border-t-6 border-t-gold-500 transition-all flex flex-col justify-between cursor-pointer">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-black text-navy-950 bg-gold-400 px-2.5 py-0.5 rounded-md">DẤU HIỆU 1</span>
+                                    <i class="fa-solid fa-user-tie text-gold-300 text-2xl"></i>
+                                </div>
+                                <h3 class="text-lg md:text-xl font-black text-white mb-2 hover-color-glow">CHỦ THỂ THỰC HIỆN</h3>
+                                <ul class="text-sm md:text-base text-slate-200 space-y-1.5 pl-4 list-disc marker:text-gold-400 font-medium">
+                                    <li>Chỉ do Cơ quan nhà nước hoặc Người có thẩm quyền tiến hành.</li>
+                                    <li>Thể hiện sự phân công quyền lực chuyên biệt của Nhà nước.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Dấu hiệu 2 -->
+                        <div onclick="triggerGavelEffect(event)" class="interactive-item glass-card p-5 rounded-2xl border-t-6 border-t-gold-500 transition-all flex flex-col justify-between cursor-pointer">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-black text-navy-950 bg-gold-400 px-2.5 py-0.5 rounded-md">DẤU HIỆU 2</span>
+                                    <i class="fa-solid fa-shield-halved text-gold-300 text-2xl"></i>
+                                </div>
+                                <h3 class="text-lg md:text-xl font-black text-white mb-2 hover-color-glow">TÍNH QUYỀN LỰC NHÀ NƯỚC</h3>
+                                <ul class="text-sm md:text-base text-slate-200 space-y-1.5 pl-4 list-disc marker:text-gold-400 font-medium">
+                                    <li>Quyết định đưa ra có tính bắt buộc thi hành.</li>
+                                    <li>Được bảo đảm thực hiện bằng biện pháp cưỡng chế nhà nước nếu vi phạm/không chấp hành.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Dấu hiệu 3 -->
+                        <div onclick="triggerGavelEffect(event)" class="interactive-item glass-card p-5 rounded-2xl border-t-6 border-t-gold-500 transition-all flex flex-col justify-between cursor-pointer">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-black text-navy-950 bg-gold-400 px-2.5 py-0.5 rounded-md">DẤU HIỆU 3</span>
+                                    <i class="fa-solid fa-file-lines text-gold-300 text-2xl"></i>
+                                </div>
+                                <h3 class="text-lg md:text-xl font-black text-white mb-2 hover-color-glow">TÍNH CÁ BIỆT, CỤ THỂ</h3>
+                                <ul class="text-sm md:text-base text-slate-200 space-y-1.5 pl-4 list-disc marker:text-gold-400 font-medium">
+                                    <li>Ban hành dưới dạng văn bản áp dụng pháp luật cá biệt (bản án, quyết định...).</li>
+                                    <li>Chỉ áp dụng cho đối tượng xác định trong một vụ việc cụ thể.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Dấu hiệu 4 -->
+                        <div onclick="triggerGavelEffect(event)" class="interactive-item glass-card p-5 rounded-2xl border-t-6 border-t-gold-500 transition-all flex flex-col justify-between cursor-pointer">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-black text-navy-950 bg-gold-400 px-2.5 py-0.5 rounded-md">DẤU HIỆU 4</span>
+                                    <i class="fa-solid fa-diagram-project text-gold-300 text-2xl"></i>
+                                </div>
+                                <h3 class="text-lg md:text-xl font-black text-white mb-2 hover-color-glow">TRÌNH TỰ THỦ TỤC & TÍNH SÁNG TẠO</h3>
+                                <ul class="text-sm md:text-base text-slate-200 space-y-1.5 pl-4 list-disc marker:text-gold-400 font-medium">
+                                    <li>Bắt buộc tuân thủ trình tự, thủ tục pháp lý chặt chẽ.</li>
+                                    <li>Đòi hỏi tính sáng tạo: Phân tích sự thật khách quan &rarr; Lựa chọn quy phạm &rarr; Phán quyết phù hợp.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 4 ================= -->
+            <section class="prezi-slide" id="slide-4">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-3 py-2">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-2.5 py-0.5 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">I. Cơ sở lý luận</span>
+                        <h2 class="text-lg md:text-2xl font-black text-white hover-color-glow">2. Khái quát các nguyên tắc áp dụng văn bản quy phạm pháp luật</h2>
+                    </div>
+
+                    <!-- Interactive Mindmap Flow -->
+                    <div class="relative w-full p-4 glass-card rounded-3xl border border-slate-700 flex flex-col items-center justify-center">
+                        
+                        <!-- Center Core -->
+                        <div class="bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 text-navy-950 font-black text-base md:text-lg text-center px-5 py-2 rounded-2xl shadow-xl shadow-gold-500/30 mb-3 max-w-lg">
+                            <i class="fa-solid fa-scale-balanced mr-2"></i> CÁC NGUYÊN TẮC ÁP DỤNG VBQPPL
+                        </div>
+
+                        <!-- 5 Principles Cards Grid -->
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-2.5 w-full interactive-container">
+                            
+                            <div onclick="selectPrinciple(event, 1)" id="p-card-1" class="interactive-item bg-navy-950 border-2 border-gold-400 p-3 rounded-2xl text-center flex flex-col items-center justify-center space-y-1 cursor-pointer transition-all shadow-lg shadow-gold-500/20">
+                                <div class="w-8 h-8 rounded-full bg-gold-500/20 text-gold-300 font-black text-sm flex items-center justify-center border border-gold-500/40">1</div>
+                                <h4 class="text-sm font-black text-white hover-color-glow">Hiệu lực thời gian</h4>
+                                <p class="text-[11px] text-slate-300">Thời điểm phát sinh hiệu lực của VB</p>
+                            </div>
+
+                            <div onclick="selectPrinciple(event, 2)" id="p-card-2" class="interactive-item bg-navy-900 border-2 border-gold-500/20 p-3 rounded-2xl text-center flex flex-col items-center justify-center space-y-1 cursor-pointer transition-all hover:border-gold-400">
+                                <div class="w-8 h-8 rounded-full bg-gold-500/20 text-gold-300 font-black text-sm flex items-center justify-center border border-gold-500/40">2</div>
+                                <h4 class="text-sm font-black text-white hover-color-glow">Thứ bậc hiệu lực</h4>
+                                <p class="text-[11px] text-slate-300">Ưu tiên văn bản pháp lý cao hơn</p>
+                            </div>
+
+                            <div onclick="selectPrinciple(event, 3)" id="p-card-3" class="interactive-item bg-navy-900 border-2 border-gold-500/20 p-3 rounded-2xl text-center flex flex-col items-center justify-center space-y-1 cursor-pointer transition-all hover:border-gold-400">
+                                <div class="w-8 h-8 rounded-full bg-gold-500/20 text-gold-300 font-black text-sm flex items-center justify-center border border-gold-500/40">3</div>
+                                <h4 class="text-sm font-black text-white hover-color-glow">Thời điểm ban hành</h4>
+                                <p class="text-[11px] text-slate-300">Cùng cấp ưu tiên văn bản ban hành sau</p>
+                            </div>
+
+                            <div onclick="selectPrinciple(event, 4)" id="p-card-4" class="interactive-item bg-navy-900 border-2 border-gold-500/20 p-3 rounded-2xl text-center flex flex-col items-center justify-center space-y-1 cursor-pointer transition-all hover:border-gold-400">
+                                <div class="w-8 h-8 rounded-full bg-gold-500/20 text-gold-300 font-black text-sm flex items-center justify-center border border-gold-500/40">4</div>
+                                <h4 class="text-sm font-black text-white hover-color-glow">Tính chuyên ngành</h4>
+                                <p class="text-[11px] text-slate-300">Ưu tiên luật chuyên ngành hơn luật chung</p>
+                            </div>
+
+                            <div onclick="selectPrinciple(event, 5)" id="p-card-5" class="interactive-item bg-navy-900 border-2 border-gold-500/20 p-3 rounded-2xl text-center flex flex-col items-center justify-center space-y-1 cursor-pointer transition-all col-span-2 md:col-span-1 hover:border-gold-400">
+                                <div class="w-8 h-8 rounded-full bg-gold-500/20 text-gold-300 font-black text-sm flex items-center justify-center border border-gold-500/40">5</div>
+                                <h4 class="text-sm font-black text-white hover-color-glow">Điều ước quốc tế</h4>
+                                <p class="text-[11px] text-slate-300">Ưu tiên Điều ước quốc tế VN tham gia</p>
+                            </div>
+
+                        </div>
+
+                        <!-- Dynamic Interactive Explanation Box Below -->
+                        <div id="principle-detail-box" class="w-full mt-3 p-3 rounded-2xl bg-navy-950 border-2 border-gold-500/50 flex items-center gap-3 transition-all animate-fadeIn">
+                            <div class="w-10 h-10 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-xl font-black shrink-0 border border-gold-500/40">
+                                <i id="detail-icon" class="fa-solid fa-clock-history"></i>
+                            </div>
+                            <div>
+                                <h4 id="detail-title" class="text-gold-300 font-black text-sm md:text-base mb-0.5">
+                                    Nguyên tắc 1: Hiệu lực thời gian
+                                </h4>
+                                <p id="detail-text" class="text-slate-200 text-xs md:text-sm font-medium leading-relaxed">
+                                    Văn bản pháp luật chỉ áp dụng kể từ thời điểm chính thức có hiệu lực. Hành vi diễn ra ở thời điểm nào thì áp dụng văn bản đang có hiệu lực ở thời điểm đó, tuân thủ chặt chẽ nguyên tắc không hồi tố (trừ trường hợp đặc biệt có lợi cho đối tượng).
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 5 (REDESIGNED TIMELINE WITH COUNT-UP) ================= -->
+            <section class="prezi-slide" id="slide-5">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-4 py-4">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-3 py-1 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">II. Vận dụng thực tiễn</span>
+                        <h2 class="text-lg md:text-2xl font-black text-white hover-color-glow">1. Đặt tình huống: Vi phạm giao thông trước khi quy định mới có hiệu lực, nhưng được phát hiện và xử lý sau đó.</h2>
+                    </div>
+
+                    <!-- Timeline Case Visual Container -->
+                    <div class="glass-card-gold p-5 rounded-3xl border border-gold-500/40 relative">
+                        
+                        <div class="text-center font-black text-lg md:text-xl text-white tracking-widest uppercase mb-4 bg-gradient-to-r from-red-600 via-gold-500 to-amber-600 py-2 rounded-xl shadow-lg">
+                            MỘT TÌNH HUỐNG – HAI MỨC PHẠT
+                        </div>
+
+                        <!-- Timeline Nodes Horizontal Axis -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 relative">
+                            
+                            <!-- Node 1 -->
+                            <div class="bg-navy-950/90 border-2 border-slate-700 p-4 rounded-2xl space-y-1 relative hover:border-gold-400 transition-all">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-black text-gold-300 bg-gold-500/20 px-2.5 py-0.5 rounded-full border border-gold-500/30">MỐC 1: 31/12/2024</span>
+                                    <i class="fa-solid fa-car-side text-amber-400 text-xl"></i>
+                                </div>
+                                <h4 class="text-sm font-bold text-white hover-color-glow">Anh A – Người điều khiển ô tô</h4>
+                                <p class="text-xs md:text-sm text-slate-200 font-medium">31/12/2024: Anh A vượt đèn đỏ, <strong class="text-gold-300 underline">hành vi đã kết thúc</strong>.</p>
+                            </div>
+
+                            <!-- Node 2 -->
+                            <div class="bg-navy-950/90 border-2 border-slate-700 p-4 rounded-2xl space-y-1 relative hover:border-gold-400 transition-all">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-black text-gold-300 bg-gold-500/20 px-2.5 py-0.5 rounded-full border border-gold-500/30">MỐC 2: 01/01/2025</span>
+                                    <i class="fa-solid fa-calendar-check text-emerald-400 text-xl"></i>
+                                </div>
+                                <h4 class="text-sm font-bold text-white hover-color-glow">Nghị định 168 có hiệu lực</h4>
+                                <p class="text-xs md:text-sm text-slate-200 font-medium">01/01/2025: Nghị định 168 chính thức có hiệu lực thi hành.</p>
+                            </div>
+
+                            <!-- Node 3 -->
+                            <div class="bg-navy-950/90 border-2 border-slate-700 p-4 rounded-2xl space-y-1 relative hover:border-gold-400 transition-all">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-black text-gold-300 bg-gold-500/20 px-2.5 py-0.5 rounded-full border border-gold-500/30">MỐC 3: 03/01/2025</span>
+                                    <i class="fa-solid fa-user-police text-blue-400 text-xl"></i>
+                                </div>
+                                <h4 class="text-sm font-bold text-white hover-color-glow">Phát hiện vi phạm</h4>
+                                <p class="text-xs md:text-sm text-slate-200 font-medium">03/01/2025: Cơ quan chức năng mới phát hiện vi phạm.</p>
+                            </div>
+
+                        </div>
+
+                        <!-- Fine Comparison Cards with COUNT-UP -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                            
+                            <div class="bg-navy-900/90 border-2 border-emerald-500/60 p-4 rounded-2xl flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs font-bold text-emerald-400 uppercase">MỨC PHẠT CŨ (NĐ 100/2019/NĐ-CP)</span>
+                                    <div class="text-2xl md:text-4xl font-black text-emerald-400 my-1">
+                                        <span class="count-up" data-target="4">0</span> - <span class="count-up" data-target="6">0</span> TRIỆU
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-shield-check text-emerald-400 text-3xl"></i>
+                            </div>
+
+                            <div class="bg-navy-900/90 border-2 border-rose-500/60 p-4 rounded-2xl flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs font-bold text-rose-400 uppercase">MỨC PHẠT MỚI (NĐ 168/2024/NĐ-CP)</span>
+                                    <div class="text-2xl md:text-4xl font-black text-rose-400 my-1">
+                                        <span class="count-up" data-target="18">0</span> - <span class="count-up" data-target="20">0</span> TRIỆU
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-triangle-exclamation text-rose-400 text-3xl"></i>
+                            </div>
+
+                        </div>
+
+                        <!-- Core Question -->
+                        <div class="mt-4 bg-navy-950 p-3.5 rounded-xl border border-gold-500/50 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-2">
+                            <span class="text-lg font-black text-gold-300 hover-color-glow">
+                                <i class="fa-solid fa-circle-question mr-2"></i>Anh A sẽ phải chịu mức phạt nào?
+                            </span>
+                            <span class="text-xs md:text-sm text-slate-200 font-bold bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
+                                Căn cứ: Nghị định 100/2019/NĐ-CP và Nghị định 168/2024/NĐ-CP.
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 6 (RESIZED & GUARANTEED FIT) ================= -->
+            <section class="prezi-slide" id="slide-6">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-3 py-2">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-2.5 py-0.5 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">II. Vận dụng thực tiễn</span>
+                        <h2 class="text-base md:text-xl font-black text-white hover-color-glow">2. Phân tích căn cứ pháp lý, lựa chọn văn bản áp dụng</h2>
+                    </div>
+
+                    <!-- Interactive Legal Switcher Tabs -->
+                    <div class="w-full glass-card p-4 rounded-3xl border border-slate-700 space-y-2">
+                        
+                        <!-- Tab Selector Buttons -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <button onclick="switchLegalTab(1)" id="tab-btn-1" class="p-2.5 rounded-xl font-black text-xs md:text-sm transition-all flex items-center justify-center gap-2 border-2 border-gold-500 bg-gold-500/20 text-gold-300 shadow-md">
+                                <i class="fa-solid fa-book-law text-base"></i> LUẬT BAN HÀNH VBQPPL 2025 (ĐIỀU 58)
+                            </button>
+                            <button onclick="switchLegalTab(2)" id="tab-btn-2" class="p-2.5 rounded-xl font-black text-xs md:text-sm transition-all flex items-center justify-center gap-2 border-2 border-slate-700 bg-navy-950 text-slate-400 hover:border-gold-500/50">
+                                <i class="fa-solid fa-shield-cat text-base"></i> NGHỊ ĐỊNH 168/2024/NĐ-CP (ĐIỀU 54)
+                            </button>
+                        </div>
+
+                        <!-- Tab Content 1 -->
+                        <div id="tab-content-1" class="bg-navy-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                            <h3 class="text-sm md:text-base font-black text-gold-300 border-b border-slate-800 pb-1.5 hover-color-glow">
+                                LUẬT BAN HÀNH VĂN BẢN QUY PHẠM PHÁP LUẬT 2025 - Điều 58. Áp dụng văn bản quy phạm pháp luật
+                            </h3>
+                            <div class="space-y-2 text-xs md:text-sm text-slate-100 font-medium leading-relaxed">
+                                <p class="p-2.5 bg-navy-900 rounded-xl border-l-4 border-gold-500 hover:bg-navy-800 transition-all">
+                                    <strong class="text-gold-300 font-bold">1.</strong> Văn bản quy phạm pháp luật được áp dụng từ thời điểm bắt đầu có hiệu lực.
+                                </p>
+                                <p class="p-2.5 bg-navy-900 rounded-xl border-l-4 border-gold-500 hover:bg-navy-800 transition-all">
+                                    <strong class="text-gold-300 font-bold">2.</strong> Văn bản quy phạm pháp luật được áp dụng đối với hành vi, sự kiện xảy ra tại thời điểm mà văn bản đó đang có hiệu lực. Trường hợp văn bản quy phạm pháp luật có quy định hiệu lực trở về trước thì áp dụng theo quy định đó.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content 2 -->
+                        <div id="tab-content-2" class="hidden bg-navy-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                            <h3 class="text-sm md:text-base font-black text-gold-300 border-b border-slate-800 pb-1.5 hover-color-glow">
+                                NGHỊ ĐỊNH 168/2024/NĐ-CP - Điều 54. Điều khoản chuyển tiếp
+                            </h3>
+                            <div class="space-y-2 text-xs md:text-sm text-slate-100 font-medium leading-relaxed">
+                                <p class="p-2.5 bg-navy-900 rounded-xl border-l-4 border-gold-500 hover:bg-navy-800 transition-all">
+                                    <strong class="text-gold-300 font-bold">1.</strong> Trường hợp hành vi vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ xảy ra và kết thúc trước ngày Nghị định này có hiệu lực thi hành sau đó mới bị phát hiện hoặc đang xem xét giải quyết thì áp dụng nghị định đang có hiệu lực tại thời điểm thực hiện hành vi vi phạm để xử phạt.
+                                </p>
+                                <p class="p-2.5 bg-navy-900 rounded-xl border-l-4 border-gold-500 hover:bg-navy-800 transition-all">
+                                    <strong class="text-gold-300 font-bold">2.</strong> Trường hợp hành vi vi phạm hành chính đang được thực hiện, thì áp dụng nghị định đang có hiệu lực tại thời điểm phát hiện hành vi vi phạm để xử phạt.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Core Takeaway Banner -->
+                    <div class="bg-gradient-to-r from-navy-900 via-gold-600/20 to-navy-900 p-3 rounded-2xl border-2 border-gold-500/50 flex flex-col md:flex-row items-center justify-between gap-2">
+                        <div class="flex items-center space-x-2.5">
+                            <div class="w-8 h-8 rounded-full bg-gold-400 text-navy-950 flex items-center justify-center font-black text-base shrink-0 shadow">
+                                &rarr;
+                            </div>
+                            <div class="text-xs md:text-sm font-bold text-white">
+                                <span class="text-gold-300 uppercase block text-[10px] font-black">Nguyên tắc chung</span>
+                                Áp dụng VBQPPL đang có hiệu lực tại thời điểm hành vi, sự kiện xảy ra.
+                            </div>
+                        </div>
+                        <div class="text-[11px] md:text-xs text-slate-200 font-semibold bg-navy-950 px-2.5 py-1.5 rounded-xl border border-slate-700">
+                            <i class="fa-solid fa-lightbulb text-gold-400 mr-1 text-sm"></i>Khi vận dụng: Cần xác định hành vi vi phạm đã <strong class="text-gold-300">kết thúc</strong> hay <strong class="text-gold-300">vẫn đang được thực hiện</strong> tại thời điểm phát hiện.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 7 ================= -->
+            <section class="prezi-slide" id="slide-7">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-4 py-4">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-3 py-1 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">II. Vận dụng thực tiễn</span>
+                        <h2 class="text-lg md:text-2xl font-black text-white hover-color-glow">3. Kết luận và thay đổi dữ kiện để so sánh, thảo luận</h2>
+                    </div>
+
+                    <!-- Conclusion Box -->
+                    <div class="bg-emerald-950/60 border-2 border-emerald-500/60 p-5 rounded-3xl flex items-center space-x-4 shadow-2xl">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl shrink-0 border border-emerald-500/40">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-emerald-400 font-black text-base md:text-lg mb-0.5">KẾT LUẬN TÌNH HUỐNG:</h3>
+                            <p class="text-slate-100 text-base md:text-xl font-bold">
+                                Người vi phạm bị phạt theo mức <span class="bg-emerald-500/30 text-emerald-300 px-2.5 py-0.5 rounded-lg border border-emerald-400/50">4 - 6 triệu đồng</span> (luật cũ), bảo đảm nguyên tắc không hồi tố tăng nặng.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Expanded Comparison Table -->
+                    <div class="w-full glass-card rounded-3xl border border-slate-700 overflow-hidden shadow-2xl">
+                        <div class="bg-navy-950 px-5 py-3 border-b border-slate-700 flex justify-between items-center">
+                            <h4 class="text-gold-300 font-black text-base uppercase flex items-center gap-2 hover-color-glow">
+                                <i class="fa-solid fa-table-list"></i> BẢNG SO SÁNH MỞ RỘNG
+                            </h4>
+                            <span class="text-xs text-slate-400 font-medium">Phân tích chuyên sâu 2 trường hợp pháp lý</span>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs md:text-sm text-slate-200">
+                                <thead class="bg-navy-900 text-gold-300 uppercase font-black text-xs tracking-wider border-b border-slate-800">
+                                    <tr>
+                                        <th class="p-3 border-r border-slate-800 w-1/4">Tiêu chí</th>
+                                        <th class="p-3 border-r border-slate-800 w-3/8 bg-red-950/40">Thực tế nhóm (NĐ 168 tăng nặng)</th>
+                                        <th class="p-3 w-3/8 bg-blue-950/40">Giả định thay đổi (Nghị định mới giảm nhẹ)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800 bg-navy-950/60">
+                                    <tr class="hover:bg-slate-800/40 transition-colors">
+                                        <td class="p-3 font-extrabold text-slate-200 border-r border-slate-800">Thời điểm hành vi</td>
+                                        <td class="p-3 border-r border-slate-800 font-medium">31/12/2024 (trước khi luật mới có hiệu lực)</td>
+                                        <td class="p-3 font-medium">31/12/2024 (trước khi luật mới có hiệu lực)</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition-colors">
+                                        <td class="p-3 font-extrabold text-slate-200 border-r border-slate-800">Quy định mới / Văn bản áp dụng</td>
+                                        <td class="p-3 border-r border-slate-800">
+                                            <p class="text-rose-400 font-black mb-0.5">Tăng lên 18 - 20 triệu đồng</p>
+                                            <p class="text-xs text-slate-300">Áp dụng Luật cũ (4 - 6 triệu) để không tăng nặng.</p>
+                                        </td>
+                                        <td class="p-3">
+                                            <p class="text-emerald-400 font-black mb-0.5">Giảm xuống 2 triệu đồng (hoặc bãi bỏ)</p>
+                                            <p class="text-xs text-slate-300">Được phép áp dụng Luật mới (hồi tố có lợi).</p>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/40 transition-colors">
+                                        <td class="p-3 font-extrabold text-slate-200 border-r border-slate-800">Ý nghĩa pháp lý</td>
+                                        <td class="p-3 border-r border-slate-800 font-bold text-amber-300">Bảo vệ quyền lợi, ngăn chặn lạm quyền.</td>
+                                        <td class="p-3 font-bold text-cyan-300">Thể hiện tính nhân đạo của pháp luật.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 8 ================= -->
+            <section class="prezi-slide" id="slide-8">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-4 py-4">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-3 py-1 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">III. Bình luận và kết luận</span>
+                        <h2 class="text-xl md:text-3xl font-black text-white hover-color-glow">1. Ý nghĩa của việc lựa chọn đúng văn bản đối với quyền lợi người dân</h2>
+                    </div>
+                    <p class="text-xs md:text-sm text-slate-400 italic">Ý nghĩa được thể hiện toàn diện trên 3 khía cạnh cốt lõi:</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 interactive-container">
+                        
+                        <!-- Aspect 1 -->
+                        <div onclick="triggerGavelEffect(event)" class="interactive-item glass-card p-5 rounded-3xl border-t-6 border-t-gold-500 flex flex-col justify-between space-y-3 cursor-pointer transition-all">
+                            <div class="w-12 h-12 rounded-2xl bg-gold-500/20 text-gold-300 flex items-center justify-center text-3xl font-black mb-1">
+                                <i class="fa-solid fa-shield-virus"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-black text-white mb-1 hover-color-glow">Bảo vệ an toàn pháp lý</h3>
+                                <p class="text-xs md:text-sm text-slate-200 font-medium leading-relaxed">
+                                    Đảm bảo tính dự liệu trong hành vi của người dân, giúp cá nhân và tổ chức yên tâm hoạt động mà không lo ngại sự thay đổi bất ngờ mang tính bất lợi của pháp luật.
+                                </p>
+                            </div>
+                            <div class="pt-2 border-t border-slate-800 text-xs font-bold text-gold-300">
+                                &check; Tự do & An tâm pháp lý
+                            </div>
+                        </div>
+
+                        <!-- Aspect 2 -->
+                        <div onclick="triggerGavelEffect(event)" class="interactive-item glass-card p-5 rounded-3xl border-t-6 border-t-gold-500 flex flex-col justify-between space-y-3 cursor-pointer transition-all">
+                            <div class="w-12 h-12 rounded-2xl bg-gold-500/20 text-gold-300 flex items-center justify-center text-3xl font-black mb-1">
+                                <i class="fa-solid fa-hand-holding-heart"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-black text-white mb-1 hover-color-glow">Đảm bảo nhân đạo, khoan hồng</h3>
+                                <p class="text-xs md:text-sm text-slate-200 font-medium leading-relaxed">
+                                    Áp dụng nguyên tắc có lợi (hồi tố khi quy định mới giảm nhẹ hoặc xóa bỏ trách nhiệm), thể hiện chính sách nhân văn và sự khoan hồng của Nhà nước.
+                                </p>
+                            </div>
+                            <div class="pt-2 border-t border-slate-800 text-xs font-bold text-gold-300">
+                                &check; Tính nhân văn sâu sắc
+                            </div>
+                        </div>
+
+                        <!-- Aspect 3 -->
+                        <div onclick="triggerGavelEffect(event)" class="interactive-item glass-card p-5 rounded-3xl border-t-6 border-t-gold-500 flex flex-col justify-between space-y-3 cursor-pointer transition-all">
+                            <div class="w-12 h-12 rounded-2xl bg-gold-500/20 text-gold-300 flex items-center justify-center text-3xl font-black mb-1">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-black text-white mb-1 hover-color-glow">Bảo vệ tài sản và danh dự</h3>
+                                <p class="text-xs md:text-sm text-slate-200 font-medium leading-relaxed">
+                                    Tránh việc xử phạt quá nặng hoặc áp dụng sai quy định gây tổn hại bất hợp pháp tới tài sản, uy tín, danh dự cũng như các quyền nhân thân của công dân.
+                                </p>
+                            </div>
+                            <div class="pt-2 border-t border-slate-800 text-xs font-bold text-gold-300">
+                                &check; Ngăn ngừa lạm quyền & Thiệt hại
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 9 ================= -->
+            <section class="prezi-slide" id="slide-9">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-4 py-4">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-3 py-1 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">III. Bình luận và kết luận</span>
+                        <h2 class="text-lg md:text-2xl font-black text-white hover-color-glow">2. Những nhầm lẫn thường gặp và bài học khi vận dụng</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <!-- Common Pitfalls Grid -->
+                        <div class="glass-card p-5 rounded-3xl border border-rose-500/40">
+                            <h3 class="text-rose-400 font-black text-lg mb-3 flex items-center">
+                                <i class="fa-solid fa-triangle-exclamation mr-2 text-xl"></i>Những nhầm lẫn thường gặp
+                            </h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div onclick="triggerGavelEffect(event)" class="bg-navy-950 p-3 rounded-2xl border border-slate-800 text-center flex flex-col items-center justify-center space-y-1 cursor-pointer hover:border-rose-400 transition-all">
+                                    <i class="fa-solid fa-globe text-rose-400 text-xl"></i>
+                                    <span class="text-sm font-bold text-white hover-color-glow">Sai phạm vi áp dụng</span>
+                                </div>
+                                <div onclick="triggerGavelEffect(event)" class="bg-navy-950 p-3 rounded-2xl border border-slate-800 text-center flex flex-col items-center justify-center space-y-1 cursor-pointer hover:border-rose-400 transition-all">
+                                    <i class="fa-solid fa-hourglass-end text-rose-400 text-xl"></i>
+                                    <span class="text-sm font-bold text-white hover-color-glow">Sai hiệu lực</span>
+                                </div>
+                                <div onclick="triggerGavelEffect(event)" class="bg-navy-950 p-3 rounded-2xl border border-slate-800 text-center flex flex-col items-center justify-center space-y-1 cursor-pointer hover:border-rose-400 transition-all">
+                                    <i class="fa-solid fa-clock text-rose-400 text-xl"></i>
+                                    <span class="text-sm font-bold text-white hover-color-glow">Sai thời điểm</span>
+                                </div>
+                                <div onclick="triggerGavelEffect(event)" class="bg-navy-950 p-3 rounded-2xl border border-slate-800 text-center flex flex-col items-center justify-center space-y-1 cursor-pointer hover:border-rose-400 transition-all">
+                                    <i class="fa-solid fa-layer-group text-rose-400 text-xl"></i>
+                                    <span class="text-sm font-bold text-white hover-color-glow">Sai giá trị pháp lý</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3-Step Verification Checklist -->
+                        <div class="glass-card p-5 rounded-3xl border border-emerald-500/40 flex flex-col justify-between">
+                            <h3 class="text-emerald-400 font-black text-lg mb-2 flex items-center">
+                                <i class="fa-solid fa-list-check mr-2 text-xl"></i>Bài học vận dụng: 3 bước tra cứu
+                            </h3>
+                            
+                            <div class="space-y-2.5">
+                                <div class="bg-navy-950 p-3 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                                    <span class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 font-black text-base flex items-center justify-center shrink-0 border border-emerald-500/40">1</span>
+                                    <div>
+                                        <h4 class="text-sm font-extrabold text-white hover-color-glow">Tra cứu hiệu lực</h4>
+                                        <p class="text-xs text-slate-300 font-medium">Văn bản còn hiệu lực hay đã được sửa đổi, thay thế?</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-navy-950 p-3 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                                    <span class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 font-black text-base flex items-center justify-center shrink-0 border border-emerald-500/40">2</span>
+                                    <div>
+                                        <h4 class="text-sm font-extrabold text-white hover-color-glow">Tra cứu thứ bậc</h4>
+                                        <p class="text-xs text-slate-300 font-medium">Xác định thẩm quyền, thứ bậc và phạm vi điều chỉnh của văn bản.</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-navy-950 p-3 rounded-2xl border border-slate-800 flex items-center space-x-3">
+                                    <span class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 font-black text-base flex items-center justify-center shrink-0 border border-emerald-500/40">3</span>
+                                    <div>
+                                        <h4 class="text-sm font-extrabold text-white hover-color-glow">Tra cứu thời điểm</h4>
+                                        <p class="text-xs text-slate-300 font-medium">Xác định thời điểm xảy ra hành vi và quy định pháp luật tương ứng.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SLIDE 10 ================= -->
+            <section class="prezi-slide" id="slide-10">
+                <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-4 py-4">
+                    <div class="flex flex-wrap items-center gap-2 shrink-0">
+                        <span class="px-3 py-1 rounded-lg bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-wider border border-gold-500/30">III. Bình luận và kết luận</span>
+                        <h2 class="text-lg md:text-2xl font-black text-white hover-color-glow">3. Khẳng định: Áp dụng đúng pháp luật phải gắn với đúng thời điểm và điều kiện áp dụng</h2>
+                    </div>
+
+                    <div class="glass-card-gold p-6 rounded-3xl border border-gold-500/50 space-y-4">
+                        
+                        <p class="text-lg md:text-2xl text-slate-100 font-bold leading-relaxed italic">
+                            <i class="fa-solid fa-quote-left text-gold-300 text-2xl mr-2"></i>
+                            Áp dụng pháp luật là hoạt động đưa quy định pháp luật vào thực tiễn.
+                        </p>
+
+                        <div>
+                            <h4 class="text-gold-300 font-black text-base uppercase mb-3 flex items-center hover-color-glow">
+                                <i class="fa-solid fa-circle-nodes mr-2 text-xl"></i>Cần bảo đảm 4 trụ cột cốt lõi:
+                            </h4>
+                            
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <div class="bg-navy-950 p-4 rounded-2xl border-2 border-gold-500/40 text-center font-black text-white text-base flex items-center justify-center gap-2 hover-color-glow">
+                                    <i class="fa-solid fa-check text-gold-400"></i> Đúng văn bản
+                                </div>
+                                <div class="bg-navy-950 p-4 rounded-2xl border-2 border-gold-500/40 text-center font-black text-white text-base flex items-center justify-center gap-2 hover-color-glow">
+                                    <i class="fa-solid fa-check text-gold-400"></i> Đúng thời điểm
+                                </div>
+                                <div class="bg-navy-950 p-4 rounded-2xl border-2 border-gold-500/40 text-center font-black text-white text-base flex items-center justify-center gap-2 hover-color-glow">
+                                    <i class="fa-solid fa-check text-gold-400"></i> Đúng đối tượng
+                                </div>
+                                <div class="bg-navy-950 p-4 rounded-2xl border-2 border-gold-500/40 text-center font-black text-white text-base flex items-center justify-center gap-2 hover-color-glow">
+                                    <i class="fa-solid fa-check text-gold-400"></i> Đúng điều kiện
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-navy-950 p-4 rounded-2xl border border-slate-700 flex items-center space-x-3 text-slate-100 text-base md:text-xl font-bold">
+                            <i class="fa-solid fa-award text-gold-400 text-3xl shrink-0"></i>
+                            <span>&rarr; Góp phần bảo vệ quyền lợi người dân và nâng cao hiệu quả quản lý nhà nước.</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Ending Footnote Button to Slide 11 -->
+            <div class="text-center pt-1">
+                <button onclick="goToSlide(11)" class="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-gold-400 text-navy-950 font-black text-base shadow-xl shadow-gold-500/30 hover:scale-105 transition-transform flex items-center gap-2 mx-auto">
+                    <span>🎮 TIẾN VÀO TRẠM GIẢI MẬT MÃ RÙA TRAO QUÀ</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SLIDE 11 (SECRET CODE PUZZLE GAME) ================= -->
+    <section class="prezi-slide" id="slide-11">
+        <div class="w-full max-w-5xl my-auto flex flex-col justify-center space-y-4 py-3">
+            
+            <div class="text-center space-y-1">
+                <span class="px-3 py-1 rounded-full bg-gold-500/20 text-gold-300 text-xs font-black uppercase tracking-widest border border-gold-500/40 animate-pulse">
+                    🎁 SLIDE ĐẶC BIỆT - THÁCH THỨC LỚP HỌC
+                </span>
+                <h2 class="text-2xl md:text-4xl font-black text-white color-shift-text">
+                    TRẠM GIẢI MẬT MÃ BÍ MẬT CỦA RÙA PHÁP LÝ
+                </h2>
+                <p class="text-xs md:text-sm text-slate-300">Ghép các manh mối Rùa đã mang đến trong suốt bài học để nhận quà!</p>
+            </div>
+
+            <!-- Lock Box Container -->
+            <div class="glass-card-gold p-6 rounded-3xl border-2 border-gold-500/60 shadow-2xl relative flex flex-col items-center text-center space-y-4">
+                
+                <!-- Big Chest Icon -->
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 text-navy-950 flex items-center justify-center text-3xl font-black shadow-lg shadow-gold-500/40 float-anim">
+                    <i class="fa-solid fa-vault"></i>
+                </div>
+
+                <!-- Interactive Answer Checker Form -->
+                <div class="w-full max-w-xl space-y-3">
+                    <label class="block text-xs md:text-sm font-extrabold text-gold-300 uppercase tracking-wider">
+                        Mật mã chủ chốt của Chủ đề 2 là gì?
+                    </label>
+
+                    <div class="flex gap-2">
+                        <input type="text" id="secret-input" placeholder="Nhập đáp án (Gợi ý: Áp dụng...)" 
+                            class="w-full bg-navy-950 text-white font-extrabold text-base md:text-lg px-4 py-3 rounded-2xl border-2 border-gold-500/50 focus:outline-none focus:border-gold-400 placeholder:text-slate-500 text-center uppercase tracking-widest">
+                        <button onclick="checkSecretCode()" class="px-6 py-3 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-navy-950 font-black text-base rounded-2xl shadow-lg transition-transform hover:scale-105 shrink-0">
+                            MỞ KHÓA 🔓
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Success Reveal Banner (Hidden Initially) -->
+                <div id="success-banner" class="hidden w-full bg-emerald-950 border-2 border-emerald-400 p-4 rounded-2xl animate-bounce space-y-2">
+                    <h3 class="text-xl md:text-2xl font-black text-emerald-300 flex items-center justify-center gap-2">
+                        🎉 CHÍNH XÁC! ĐÁP ÁN LÀ: <span class="underline decoration-gold-400 text-white">ÁP DỤNG ĐÚNG THỜI ĐIỂM</span> 🎉
+                    </h3>
+                    <p class="text-xs md:text-sm text-slate-200 font-bold">
+                        Chúc mừng bạn đã tập trung lắng nghe và giải mã thành công! Bạn hãy tiến lên nhận quà từ nhóm thuyết trình nào! 🎁
+                    </p>
+                </div>
+
+                <!-- Hints Summary Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 w-full pt-2">
+                    <div class="bg-navy-950 p-2.5 rounded-xl border border-slate-800 text-left">
+                        <span class="text-[10px] font-black text-gold-400 block">Manh mối 1</span>
+                        <span class="text-xs font-bold text-white">"Từ khóa 1: Việc cơ quan nhà nước dùng pháp luật đưa vào thực tế gọi là gì?"</span>
+                    </div>
+                    <div class="bg-navy-950 p-2.5 rounded-xl border border-slate-800 text-left">
+                        <span class="text-[10px] font-black text-gold-400 block">Manh mối 2</span>
+                        <span class="text-xs font-bold text-white">"Từ khóa 2: Không được làm sai, làm ẩu mà phải làm thế nào?"</span>
+                    </div>
+                    <div class="bg-navy-950 p-2.5 rounded-xl border border-slate-800 text-left">
+                        <span class="text-[10px] font-black text-gold-400 block">Manh mối 3</span>
+                        <span class="text-xs font-bold text-white">"Từ khóa 3: Ngày 31/12 hay 01/01 trong bài học gọi chung là gì?"</span>
+                    </div>
+                    <div class="bg-navy-950 p-2.5 rounded-xl border border-slate-800 text-left">
+                        <span class="text-[10px] font-black text-emerald-400 block">Mật Mã Tổng</span>
+                        <span class="text-xs font-bold text-white">5 TỪ BÍ MẬT</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+</main>
+
+<!-- NAVIGATION CONTROLS BAR (BOTTOM) -->
+<footer class="w-full bg-navy-950/90 border-t border-slate-800 px-6 py-3 flex justify-between items-center z-50 backdrop-blur-md h-[60px] shrink-0">
+    
+    <button onclick="prevSlide()" class="flex items-center space-x-2 px-4 py-2 bg-navy-900 border border-slate-700 hover:border-gold-500 rounded-xl font-extrabold text-xs md:text-sm text-slate-200 hover:text-gold-300 transition-all shadow-md">
+        <i class="fa-solid fa-chevron-left"></i>
+        <span class="hidden sm:inline">Trang trước</span>
+    </button>
+
+    <!-- Slide Progress Indicators (Dots) -->
+    <div class="flex items-center space-x-2" id="dots-container">
+        <!-- Dynamic Dots -->
+    </div>
+
+    <button onclick="nextSlide()" class="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-gold-600 to-gold-500 border border-gold-400 rounded-xl font-extrabold text-xs md:text-sm text-navy-950 hover:brightness-110 transition-all shadow-lg shadow-gold-500/30">
+        <span class="hidden sm:inline">Trang tiếp</span>
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+
+</footer>
+
+<!-- DRAWER / MENU SIDEBAR SLIDE NAVIGATION -->
+<div id="drawer" class="fixed inset-y-0 right-0 w-80 bg-navy-950/95 border-l border-slate-800 z-50 transform translate-x-full transition-transform duration-300 ease-in-out p-6 overflow-y-auto backdrop-blur-xl shadow-2xl">
+    <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+        <h3 class="font-black text-lg text-gold-300 flex items-center gap-2">
+            <i class="fa-solid fa-list text-base"></i> Danh Sách Slide
+        </h3>
+        <button onclick="toggleDrawer()" class="text-slate-400 hover:text-white text-xl">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    
+    <div class="space-y-2" id="drawer-menu">
+        <!-- Dynamic Drawer Buttons -->
+    </div>
+</div>
+
+<!-- SCRIPT LOGIC -->
+<script>
+    let currentSlide = 1;
+    const totalSlides = 11;
+    let isAnimating = false;
+    let isLaserActive = false;
+
+    const slideTitles = [
+        "1. Trang chủ Thuyết trình",
+        "2. Khái niệm Áp dụng VBQPPL",
+        "3. 4 Dấu hiệu Pháp lý",
+        "4. Các Nguyên tắc Áp dụng",
+        "5. Tình huống Xử phạt Giao thông",
+        "6. Căn cứ Pháp lý (Điều 58 & 54)",
+        "7. Kết luận & Bảng so sánh mở rộng",
+        "8. Ý nghĩa 3 khía cạnh với người dân",
+        "9. 4 Nhầm lẫn & 3 bước tra cứu",
+        "10. Khẳng định & 4 Trụ cột cốt lõi",
+        "11. 🎁 Trạm Giải Mật Mã Rùa Trao Quà"
+    ];
+
+    // Prezi Camera Positioning Scaled for 11 slides
+    const slideTransformations = [
+        { x: 0,     y: 0,     z: 0,    rotate: 0 },       // Slide 1
+        { x: 1200,  y: -150,  z: -50,  rotate: -1 },     // Slide 2
+        { x: 2400,  y: 0,     z: -100, rotate: 1 },      // Slide 3
+        { x: 1200,  y: 800,   z: -80,  rotate: 2 },      // Slide 4
+        { x: -1000, y: 650,   z: -50,  rotate: -1 },     // Slide 5
+        { x: -2200, y: 0,     z: -80,  rotate: 1 },      // Slide 6
+        { x: -1200, y: -800,  z: -100, rotate: -1 },     // Slide 7
+        { x: 0,     y: -1300, z: -80,  rotate: 2 },      // Slide 8
+        { x: 1400,  y: -1300, z: -100, rotate: -1 },     // Slide 9
+        { x: 0,     y: 0,     z: 80,   rotate: 0 },      // Slide 10
+        { x: 2000,  y: 1200,  z: -120, rotate: 3 }       // Slide 11
+    ];
+
+    // Details for Principle Cards on Slide 4
+    const principleDetails = [
+        {
+            title: "Nguyên tắc 1: Hiệu lực thời gian",
+            text: "Văn bản pháp luật chỉ áp dụng kể từ thời điểm chính thức có hiệu lực. Hành vi diễn ra ở thời điểm nào thì áp dụng văn bản đang có hiệu lực ở thời điểm đó, tuân thủ nguyên tắc không hồi tố (trừ trường hợp đặc biệt có lợi cho đối tượng).",
+            icon: "fa-clock-history"
+        },
+        {
+            title: "Nguyên tắc 2: Thứ bậc hiệu lực",
+            text: "Các văn bản quy phạm pháp luật có giá trị pháp lý khác nhau tùy thuộc vào vị trí của cơ quan ban hành trong bộ máy nhà nước. Văn bản cấp dưới không được trái với văn bản cấp trên, nếu mâu thuẫn thì ưu tiên áp dụng văn bản có hiệu lực pháp lý cao hơn.",
+            icon: "fa-layer-group"
+        },
+        {
+            title: "Nguyên tắc 3: Thời điểm ban hành",
+            text: "Trong trường hợp các văn bản quy phạm pháp luật do cùng một cơ quan ban hành mà có quy định khác nhau về cùng một vấn đề thì áp dụng quy định của văn bản được ban hành sau.",
+            icon: "fa-calendar-plus"
+        },
+        {
+            title: "Nguyên tắc 4: Tính chuyên ngành",
+            text: "Trường hợp các văn bản quy phạm pháp luật khác nhau có quy định khác nhau về cùng một vấn đề thì áp dụng văn bản chuyên ngành (văn bản quy định riêng cho lĩnh vực đó) thay vì văn bản chung.",
+            icon: "fa-briefcase"
+        },
+        {
+            title: "Nguyên tắc 5: Điều ước quốc tế",
+            text: "Trường hợp VBQPPL trong nước và Điều ước quốc tế mà Cộng hòa xã hội chủ nghĩa Việt Nam là thành viên có quy định khác nhau về cùng một vấn đề thì áp dụng quy định của Điều ước quốc tế (trừ Hiến pháp).",
+            icon: "fa-globe"
+        }
+    ];
+
+    // Short Secret Code Clues for Turtle
+    const turtleCodePuzzles = [
+        {
+            title: "🗝️ Manh mối Mật mã #1",
+            content: "Từ khóa 1: Việc cơ quan nhà nước dùng pháp luật đưa vào thực tế gọi là gì? (Gợi ý: ÁP...)"
+        },
+        {
+            title: "🗝️ Manh mối Mật mã #2",
+            content: "Từ khóa 2: Không được làm sai, làm ẩu mà phải làm thế nào? (Gợi ý: MỘT TỪ)"
+        },
+        {
+            title: "🗝️ Manh mối Mật mã #3",
+            content: "Từ khóa 3: Ngày 31/12 hay 01/01 trong bài học gọi chung là gì? (Gợi ý: THỜI...)"
+        },
+        {
+            title: "🗝️ Mật Mã Tổng Ghép Lại",
+            content: "Ghép 3 mảnh ghép trên lại sẽ ra Mật Mã Bí Mật ở Slide 11 để nhận quà nhé!"
+        }
+    ];
+
+    // Web Audio API Sound Generation
+    function playGavelSound() {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const ctx = new AudioCtx();
+            
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(140, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.15);
+
+            gain.gain.setValueAtTime(0.8, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start();
+            osc.stop(ctx.currentTime + 0.15);
+        } catch(e) {}
+    }
+
+    // Trigger Visual Gavel Impact & Shockwave
+    function triggerGavelEffect(event) {
+        playGavelSound();
+        if (!event) return;
+
+        const x = event.clientX;
+        const y = event.clientY;
+
+        const gavel = document.getElementById('gavel-overlay');
+        if (gavel) {
+            gavel.style.left = (x - 60) + 'px';
+            gavel.style.top = (y - 60) + 'px';
+            gavel.style.display = 'block';
+            gavel.classList.remove('gavel-strike');
+            void gavel.offsetWidth; // trigger reflow
+            gavel.classList.add('gavel-strike');
+            
+            setTimeout(() => {
+                gavel.style.display = 'none';
+            }, 400);
+        }
+
+        const wave = document.createElement('div');
+        wave.className = 'shockwave';
+        wave.style.left = x + 'px';
+        wave.style.top = y + 'px';
+        document.body.appendChild(wave);
+        setTimeout(() => wave.remove(), 500);
+    }
+
+    // Position Prezi Slides in 3D Space
+    function setupPreziWorld() {
+        slideTransformations.forEach((target, index) => {
+            const slide = document.getElementById(`slide-${index + 1}`);
+            if (slide) {
+                slide.style.transform = `translate3d(${target.x}px, ${target.y}px, ${target.z}px) rotate(${target.rotate}deg)`;
+            }
+        });
+    }
+
+    // Particles Background Canvas Animation
+    function initParticlesCanvas() {
+        const canvas = document.getElementById('particles-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                alpha: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        function render() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(245, 158, 11, ${p.alpha})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#f59e0b';
+                ctx.fill();
+            });
+            requestAnimationFrame(render);
+        }
+        render();
+    }
+
+    // Principle selection (Slide 4)
+    function selectPrinciple(event, index) {
+        triggerGavelEffect(event);
+        for (let i = 1; i <= 5; i++) {
+            const card = document.getElementById(`p-card-${i}`);
+            if (card) {
+                if (i === index) {
+                    card.className = "interactive-item bg-navy-950 border-2 border-gold-400 p-3 rounded-2xl text-center flex flex-col items-center justify-center space-y-1 cursor-pointer transition-all shadow-lg shadow-gold-500/20";
+                } else {
+                    card.className = "interactive-item bg-navy-900 border-2 border-gold-500/20 p-3 rounded-2xl text-center flex flex-col items-center justify-center space-y-1 cursor-pointer transition-all hover:border-gold-400";
+                }
+            }
+        }
+
+        const data = principleDetails[index - 1];
+        if (data) {
+            document.getElementById('detail-title').textContent = data.title;
+            document.getElementById('detail-text').textContent = data.text;
+            const iconEl = document.getElementById('detail-icon');
+            if (iconEl) iconEl.className = `fa-solid ${data.icon}`;
+        }
+    }
+
+    // Turtle Random Movement & Secret Fact Spawning
+    function spawnTurtleLoop() {
+        const turtle = document.getElementById('cute-turtle');
+        if (!turtle) return;
+
+        function moveTurtle() {
+            const randX = Math.random() * (window.innerWidth - 120) + 40;
+            const randY = Math.random() * (window.innerHeight - 180) + 60;
+            
+            turtle.style.left = randX + 'px';
+            turtle.style.top = randY + 'px';
+            turtle.style.opacity = '1';
+
+            // Show clue bubble occasionally
+            if (Math.random() > 0.4) {
+                setTimeout(() => {
+                    interactTurtle();
+                }, 1000);
+            }
+
+            setTimeout(() => {
+                turtle.style.opacity = '0';
+            }, 6000);
+        }
+
+        moveTurtle();
+        setInterval(moveTurtle, 18000);
+    }
+
+    function interactTurtle(event) {
+        if (event) event.stopPropagation();
+        playGavelSound();
+        const speech = document.getElementById('turtle-speech');
+        const titleEl = document.getElementById('turtle-fact-title');
+        const bodyEl = document.getElementById('turtle-fact-body');
+        
+        const randomPuzzle = turtleCodePuzzles[Math.floor(Math.random() * turtleCodePuzzles.length)];
+        
+        titleEl.innerHTML = `<span>${randomPuzzle.title}</span><i class="fa-solid fa-key text-gold-400"></i>`;
+        bodyEl.textContent = randomPuzzle.content;
+        
+        speech.classList.remove('hidden');
+        speech.classList.add('animate-bounce');
+        
+        setTimeout(() => {
+            speech.classList.remove('animate-bounce');
+        }, 1000);
+
+        setTimeout(() => {
+            speech.classList.add('hidden');
+        }, 7000);
+    }
+
+    // Secret Code Checker Function for Slide 11
+    function checkSecretCode() {
+        playGavelSound();
+        const input = document.getElementById('secret-input').value.trim().toLowerCase();
+        const banner = document.getElementById('success-banner');
+
+        if (input.includes('ap dung dung thoi diem') || input.includes('áp dụng đúng thời điểm')) {
+            banner.classList.remove('hidden');
+            for (let i = 0; i < 5; i++) {
+                setTimeout(playGavelSound, i * 150);
+            }
+        } else {
+            alert('Mật mã chưa chính xác rồi! Gợi ý: Ghép các từ khóa "ÁP DỤNG" + "ĐÚNG" + "THỜI ĐIỂM" lại nhé!');
+        }
+    }
+
+    function updatePreziCamera(slideIndex) {
+        const world = document.getElementById('prezi-world');
+        const target = slideTransformations[slideIndex - 1];
+
+        world.style.transform = `rotate(${-target.rotate}deg) translate3d(${-target.x}px, ${-target.y}px, ${-target.z + 150}px)`;
+
+        for (let i = 1; i <= totalSlides; i++) {
+            const slide = document.getElementById(`slide-${i}`);
+            if (slide) {
+                if (i === slideIndex) {
+                    slide.classList.add('active-slide');
+                } else {
+                    slide.classList.remove('active-slide');
+                }
+            }
+        }
+
+        document.getElementById('current-slide-num').textContent = slideIndex;
+        updateDots(slideIndex);
+
+        if (slideIndex === 5) {
+            setTimeout(runCountUp, 400);
+        }
+    }
+
+    function goToSlide(slideNum) {
+        if (slideNum < 1 || slideNum > totalSlides || isAnimating) return;
+        isAnimating = true;
+        currentSlide = slideNum;
+        updatePreziCamera(currentSlide);
+        setTimeout(() => { isAnimating = false; }, 1200);
+    }
+
+    function nextSlide() {
+        if (currentSlide < totalSlides) goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        if (currentSlide > 1) goToSlide(currentSlide - 1);
+    }
+
+    // Count-up animation for numbers on Slide 5
+    function runCountUp() {
+        const counters = document.querySelectorAll('.count-up');
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            let current = 0;
+            const step = Math.max(1, Math.ceil(target / 20));
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    counter.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    counter.textContent = current;
+                }
+            }, 50);
+        });
+    }
+
+    // Legal tabs switcher (Slide 6)
+    function switchLegalTab(tabNum) {
+        playGavelSound();
+        const btn1 = document.getElementById('tab-btn-1');
+        const btn2 = document.getElementById('tab-btn-2');
+        const content1 = document.getElementById('tab-content-1');
+        const content2 = document.getElementById('tab-content-2');
+
+        if (tabNum === 1) {
+            btn1.className = "p-2.5 rounded-xl font-black text-xs md:text-sm transition-all flex items-center justify-center gap-2 border-2 border-gold-500 bg-gold-500/20 text-gold-300 shadow-md";
+            btn2.className = "p-2.5 rounded-xl font-black text-xs md:text-sm transition-all flex items-center justify-center gap-2 border-2 border-slate-700 bg-navy-950 text-slate-400 hover:border-gold-500/50";
+            content1.classList.remove('hidden');
+            content2.classList.add('hidden');
+        } else {
+            btn2.className = "p-2.5 rounded-xl font-black text-xs md:text-sm transition-all flex items-center justify-center gap-2 border-2 border-gold-500 bg-gold-500/20 text-gold-300 shadow-md";
+            btn1.className = "p-2.5 rounded-xl font-black text-xs md:text-sm transition-all flex items-center justify-center gap-2 border-2 border-slate-700 bg-navy-950 text-slate-400 hover:border-gold-500/50";
+            content2.classList.remove('hidden');
+            content1.classList.add('hidden');
+        }
+    }
+
+    // Generate Bottom Dots Nav
+    function initDots() {
+        const container = document.getElementById('dots-container');
+        container.innerHTML = '';
+        for (let i = 1; i <= totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.className = `w-3 h-3 rounded-full transition-all border border-gold-500/40 ${i === 1 ? 'bg-gold-400 w-6' : 'bg-slate-700 hover:bg-gold-500/60'}`;
+            dot.onclick = () => goToSlide(i);
+            dot.title = slideTitles[i - 1];
+            dot.id = `dot-${i}`;
+            container.appendChild(dot);
+        }
+    }
+
+    function updateDots(activeNum) {
+        for (let i = 1; i <= totalSlides; i++) {
+            const dot = document.getElementById(`dot-${i}`);
+            if (dot) {
+                if (i === activeNum) {
+                    dot.className = 'w-6 h-3 rounded-full bg-gold-400 transition-all shadow-md shadow-gold-500/50 border border-gold-300';
+                } else {
+                    dot.className = 'w-3 h-3 rounded-full bg-slate-700 hover:bg-gold-500/60 transition-all border border-gold-500/30';
+                }
+            }
+        }
+    }
+
+    // Generate Slide Drawer Navigation
+    function initDrawer() {
+        const menu = document.getElementById('drawer-menu');
+        menu.innerHTML = '';
+        slideTitles.forEach((title, index) => {
+            const btn = document.createElement('button');
+            btn.className = "w-full text-left p-3 rounded-xl bg-navy-900 hover:bg-gold-500/20 hover:text-gold-300 border border-slate-800 font-semibold text-sm transition-all flex items-center justify-between";
+            btn.innerHTML = `<span>${title}</span> <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>`;
+            btn.onclick = () => {
+                goToSlide(index + 1);
+                toggleDrawer();
+            };
+            menu.appendChild(btn);
+        });
+    }
+
+    function toggleDrawer() {
+        const drawer = document.getElementById('drawer');
+        drawer.classList.toggle('translate-x-full');
+    }
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {});
+        } else {
+            if (document.exitFullscreen) document.exitFullscreen();
+        }
+    }
+
+    // Laser pointer toggle using key 'L'
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+            nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+            prevSlide();
+        } else if (e.key.toLowerCase() === 'l') {
+            isLaserActive = !isLaserActive;
+            const laser = document.getElementById('laser-pointer');
+            if (laser) laser.style.display = isLaserActive ? 'block' : 'none';
+        }
+    });
+
+    // Follow mouse for laser pointer
+    document.addEventListener('mousemove', (e) => {
+        const laser = document.getElementById('laser-pointer');
+        if (laser && isLaserActive) {
+            laser.style.left = e.clientX + 'px';
+            laser.style.top = e.clientY + 'px';
+        }
+    });
+
+    // Initialize App on Window Load
+    window.onload = function() {
+        setupPreziWorld();
+        initParticlesCanvas();
+        initDots();
+        initDrawer();
+        updatePreziCamera(1);
+        spawnTurtleLoop();
+    };
+</script>
+</body>
+</html>
